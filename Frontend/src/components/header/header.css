@@ -1,0 +1,89 @@
+/* HEADER CONTAINER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e293b;
+  color: white;
+  padding: 15px 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* LOGO */
+.logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #facc15;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.logo:hover {
+  color: #fde047;
+}
+
+/* NAVIGATION */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* LINKS */
+.nav-link {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #facc15;
+}
+
+/* CART BADGE */
+.cart-container {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* BUTTONS */
+.login-btn,
+.logout-btn {
+  background-color: #facc15;
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.login-btn:hover {
+  background-color: #fde047;
+}
+
+.logout-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: #dc2626;
+}
