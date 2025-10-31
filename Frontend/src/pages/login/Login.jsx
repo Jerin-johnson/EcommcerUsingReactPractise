@@ -5,6 +5,7 @@ import { loginUser } from '../../services/authServices';
 import {  setUser } from '../../slices/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css'; 
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors },reset } = useForm();
@@ -25,7 +26,7 @@ const Login = () => {
         email: data.email
       }));
 
-      alert("User login successful");
+      toast("User login successful");
       reset();
       navigate("/");
       }else{
@@ -34,6 +35,7 @@ const Login = () => {
       
     } catch (err) {
       console.log(err);
+      if(err.response?.data?.message ) toast.error(err.response?.data?.message);
       setServerSideError(err.response?.data?.message || "User login failed");
     }
   };

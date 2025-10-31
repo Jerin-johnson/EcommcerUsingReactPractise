@@ -5,6 +5,7 @@ import { registerUser } from '../../services/authServices';
 import {  setUser } from '../../slices/authSlice';
 import './register.css'; 
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { register, handleSubmit, formState: { errors },reset } = useForm();
@@ -21,13 +22,14 @@ const Register = () => {
         email: data.email,
         username: data.username
       }));
-
-      alert("User registered successfully!");
+      toast.success("User registered successfully!");
       reset();
       navigate("/");
     } catch (err) {
       console.log(err);
-     setServerSideError(err.response?.data?.message || "User login failed");
+      if(err.response?.data?.message)
+      toast.error(err.response?.data?.message)
+      setServerSideError(err.response?.data?.message || "User login failed");
     }
   };
 

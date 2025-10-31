@@ -1,9 +1,10 @@
-import React from "react";
+import React, {  useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../slices/authSlice";
 import "./header.css"; // 👈 import CSS file
 import { logoutUser } from "../../services/authServices";
+import { fetchCart } from "../../slices/cartSlice";
 
 
 const Header = () => {
@@ -11,7 +12,17 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-//   const cartItems = useSelector((state) => state.cart.items);
+
+  const {items,isfetched,loading} = useSelector((state) => state.cart);
+
+
+  useEffect(() => {
+
+   if (isAuthenticated && !isfetched && !loading) {
+      dispatch(fetchCart());
+    }
+  
+}, [dispatch, isAuthenticated,isfetched,loading]);
 
   const handleLogout = async () => {
     const res = await logoutUser()
@@ -31,13 +42,13 @@ const Header = () => {
       <nav className="nav">
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/sell" className="nav-link">Sell</Link>
-        <Link to="/products" className="nav-link">Products</Link>
+        <Link to="/myproducts" className="nav-link">MyProducts</Link>
 
         <div className="cart-container">
           <Link to="/cart" className="nav-link">Cart</Link>
-          {/* {cartItems.length > 0 && (
-            <span className="cart-badge">{cartItems.length}</span>
-          )} */}
+          {isfetched && items.length > 0 && (
+      <span className="cart-badge">{items.length}</span>
+    )}
         </div>
 
         {/* Auth Buttons */}
