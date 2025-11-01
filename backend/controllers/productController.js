@@ -1,3 +1,4 @@
+import Cart from "../models/cartModel.js";
 import Product from "../models/productModel.js";
 
 
@@ -118,5 +119,31 @@ export const deleteProduct = async (req,res)=>{
   } catch (error) {
     console.log(error);
     return res.status(500).json({success:false,message:"Something went wrong"});
+  }
+}
+
+
+
+export const handleCheckOut = async (req,res)=>{
+  try {
+    const {cartItems}= req.body;
+    const userId = req.user._id;
+
+    await Product.updateMany(
+      {_id:{$in:cartItems}},
+      {$set:{isSold:true}}
+    );
+
+    await Cart.updateOne({userId},
+      {$set:{items:[]}}
+    );
+
+    console.log("is everything fine checking")
+    return res.status(200).json({ success: true, message: "Checkout complete" });
+
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({success:false,message:error.message});
   }
 }

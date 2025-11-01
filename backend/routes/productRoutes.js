@@ -1,5 +1,5 @@
 import express from "express";
-import { addProduct, updateProduct, getProductbyId,fetchProduct, getUserProducts, deleteProduct } from "../controllers/productController.js";
+import { addProduct, updateProduct, getProductbyId,fetchProduct, getUserProducts, deleteProduct,handleCheckOut } from "../controllers/productController.js";
 import upload from "../multerconfig.js";
 import userAuth from "../middlewares/userAuth.js";
 
@@ -17,7 +17,10 @@ router.put("/update/:id", userAuth, upload.single("image"), updateProduct);
 
 
 
-router.delete("/:id",userAuth,deleteProduct)
+router.delete("/:id",userAuth,deleteProduct);
+
+
+router.post("/checkout",userAuth,handleCheckOut)
 
 export default router;
 

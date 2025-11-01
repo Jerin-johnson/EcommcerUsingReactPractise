@@ -6,7 +6,7 @@ const API_URL = "http://localhost:3000/api/cart";
 
 export const fetchCart = createAsyncThunk('cart/fetchCart',async(_,{rejectWithValue})=>{
     try {
-
+        console.log("hai helloe")
         const response = await axios.get(`${API_URL}`,{withCredentials:true});
         return response.data.data;
         
@@ -47,9 +47,12 @@ const cartSlice = createSlice({
         items:[],
         loading:false,
         error:null,
-        isfetched :false
     },
-    reducers:{},
+    reducers:{
+        clearCart :(state)=>{
+            state.items.length = 0;
+        }
+    },
     extraReducers:(builder)=>{
         builder.
         addCase(fetchCart.pending,(state)=>{
@@ -58,7 +61,6 @@ const cartSlice = createSlice({
         .addCase(fetchCart.fulfilled,(state,action)=>{
             state.loading = false;
             state.items = action.payload;
-            state.isfetched = true;
         })
         .addCase(fetchCart.rejected,(state,action)=>{
             state.loading = false;
@@ -75,3 +77,4 @@ const cartSlice = createSlice({
 
 
 export default cartSlice.reducer;
+export const {clearCart} = cartSlice.actions;

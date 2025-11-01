@@ -7,6 +7,8 @@ import Sellpage from "../pages/sell/Sellpage";
 import Productlisting from "../components/productlist/Productlisting";
 import Myproducts from "../pages/myproducts/Myproducts";
 import Proctedroute from "../components/Proctedroute";
+import Cart from "../pages/cart/Cart";
+import Checkout from "../pages/checkout/Checkout";
 
 
 const route = createBrowserRouter([
@@ -29,6 +31,14 @@ const route = createBrowserRouter([
             {
                 path:"/myproducts",
                 element:<Proctedroute><Myproducts/></Proctedroute>
+            },
+            {
+                path:"/cart",
+                element:<Proctedroute><Cart/></Proctedroute>
+            },
+            {
+                path:"/checkout",
+                element:<Checkout/>
             }
         ]
     },

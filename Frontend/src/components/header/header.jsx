@@ -13,16 +13,15 @@ const Header = () => {
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  const {items,isfetched,loading} = useSelector((state) => state.cart);
+  const {items} = useSelector((state) => state.cart);
 
 
-  useEffect(() => {
+useEffect(()=>{
+  if(isAuthenticated)
+ dispatch(fetchCart())
+},[dispatch,isAuthenticated])
+ 
 
-   if (isAuthenticated && !isfetched && !loading) {
-      dispatch(fetchCart());
-    }
-  
-}, [dispatch, isAuthenticated,isfetched,loading]);
 
   const handleLogout = async () => {
     const res = await logoutUser()
@@ -46,7 +45,7 @@ const Header = () => {
 
         <div className="cart-container">
           <Link to="/cart" className="nav-link">Cart</Link>
-          {isfetched && items.length > 0 && (
+          { items.length > 0 && (
       <span className="cart-badge">{items.length}</span>
     )}
         </div>

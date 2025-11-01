@@ -55,13 +55,14 @@ export const addToCart = async (req, res) => {
 
 export const deleteFromCart = async (req,res)=>{
     try {
-        const {id} = req.params;
+      console.log("is delete cart get called check")
+        const {id} = req?.params;
         const userId = req.user._id;
-     if(!id || userId) return res.status(400).json({success:false,message:"bad request"});
+     if(!id || !userId) return res.status(400).json({success:false,message:"bad request"});
 
      const cart = await Cart.findOne({ userId });
     if (!cart) {
-      return res.status(404).json({ success: false, message: "Cart not found" });
+      return res.status(400).json({ success: false, message: "No items in the cart" });
     }
 
     
@@ -98,9 +99,11 @@ export const deleteFromCart = async (req,res)=>{
 
 export const fetchUserCartItems = async(req,res)=>{
     try {
+      console.log("This fetch user cart page")
         const userId = req.user?._id;
 
-        if(!userId) return res.status(404).json({success:false,message:"Bad request"});
+        if(!userId) return res.status(400).json({success:false,message:"Bad request"});
+        console.log("Is this also called")
 
         const userCart = await Cart.findOne({userId}).populate("items.productId");
 

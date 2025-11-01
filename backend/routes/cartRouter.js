@@ -5,7 +5,7 @@ import userAuth from "../middlewares/userAuth.js";
 
 const router = express.Router();
 
-router.get("/",fetchUserCartItems)
+router.get("/",userAuth,fetchUserCartItems)
 router.post("/add/:id",userAuth,addToCart);
 router.delete("/:id",userAuth,deleteFromCart);
 
